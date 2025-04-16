@@ -1,8 +1,19 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Container, Typography, Link } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 const NotFound = () => {
-  return <Typography variant="h5">404 - Page Not Found</Typography>;
+
+  const navigate = useNavigate();
+  
+  return (
+  <Container maxWidth="sm" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+  <Typography variant="h5">404 - Page Not Found</Typography>
+  <Link component="button" onClick={()=>{navigate('/')}} style={{ marginTop: '20px', textDecoration: 'none', color: '#3f51b5', cursor: 'pointer' }}>
+  Go Home
+  </Link>
+  </Container>
+  )
 };
 
 export default NotFound;

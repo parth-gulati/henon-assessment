@@ -1,10 +1,23 @@
-// src/components/Header.js
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../api/authenticationApi';
+import { useUser } from '../../context/UserContext';
+import { toast } from "react-toastify";
 
-const Header = ({ isAuthenticated, onLogout }) => {
+const Header = ({ token, removeToken }) => {
   const navigate = useNavigate();
+  const {logoutUser } = useUser();
+
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res.status == 200) {
+      toast.success(res.data.message)
+    }
+    removeToken();
+    logoutUser();
+  };
+
 
   return (
     <AppBar position="static">
@@ -12,8 +25,8 @@ const Header = ({ isAuthenticated, onLogout }) => {
         <Typography variant="h6" onClick={() => navigate("/dashboard")} sx={{ cursor: "pointer" }}>
           Event Planner
         </Typography>
-        {isAuthenticated && (
-          <Button color="inherit" onClick={onLogout}>
+        {!!token && (
+          <Button color="inherit" onClick={handleLogout}>
             Logout
           </Button>
         )}
