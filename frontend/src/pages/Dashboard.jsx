@@ -2,27 +2,47 @@ import React, { useState } from 'react';
 import { Typography, Container, Button, Box, Tabs, Tab } from '@mui/material';
 import styled from '@emotion/styled';
 import CreateEvent from '../components/Events/CreateEvent';
-import EventTabs from '../components/Events/EventTabs';
+import { useEffect } from "react"
+import { getEvents } from "../api/eventApi"
+import useToken from '../context/useToken'
+import ListView from '../components/Events/ListView';
 
 const Dashboard = () => {
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false); 
+  const [events, setEvents] = useState([]);
+  const [value, setValue] = React.useState(0);
+  const [deletionOpen, setDeletionOpen] = useState(false);
+
+  const { token } = useToken();
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      if (!open) {
+        const { data, status } = await getEvents(token);
+        if (status === 200) {
+          setEvents(data.data.events);
+        } else {
+          toast.error("Error fetching events");
+        }
+      }
+    }
+    fetchEvents();
+  }, [open, deletionOpen])
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-   const [value, setValue] = React.useState(0);
-  
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
-}
+
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
   return (
     <StyledContainer>
@@ -34,6 +54,9 @@ function a11yProps(index) {
         </Tabs>
         <Button variant="contained" color="primary" onClick={handleOpen}>Create Event</Button>
       </StyledBox>
+      <StyledContainer>
+        {value === 0 && <ListView events={events} deletionOpen={deletionOpen} setDeletionOpen={setDeletionOpen} />}
+      </StyledContainer>
       <CreateEvent open={open} handleClose={handleClose} handleOpen={handleOpen} />
     </StyledContainer>
   );

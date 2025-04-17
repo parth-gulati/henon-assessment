@@ -31,7 +31,7 @@ const schema = Yup.object().shape({
     endTime: Yup.string().required("End time is required"),
 });
 
-const CreateEventForm = ({ onSubmit }) => {
+const CreateEventForm = ({ onSubmit, eventData, isEditing }) => {
     const {
         handleSubmit,
         control,

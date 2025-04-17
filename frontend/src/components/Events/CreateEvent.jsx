@@ -6,6 +6,12 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CreateEventForm from './CreateEventForm';
 import styled from '@emotion/styled';
+import {toast} from 'react-toastify';
+import { useState } from 'react';
+import { updateDateTime } from '../../helpers';
+import { createEvent } from '../../api/eventApi';
+import useToken from '../../context/useToken';
+
 
 const style = {
   position: 'absolute',
@@ -19,7 +25,33 @@ const style = {
   p: 4,
 };
 
-export default function CreateEvent({open, handleOpen, handleClose}) {
+export default function CreateEvent({open, handleOpen, handleClose, eventData}) {
+
+  const [loading, setLoading] = useState(false);
+
+  const {token} = useToken();
+
+  const onSubmit = async (data) => {
+    const newStartDate = updateDateTime(data.startDate, data.startTime);
+    const newEndDate = updateDateTime(data.endDate, data.endTime);
+    const eventData = {
+      title: data.title,
+      type: data.type,
+      from: newStartDate,
+      to: newEndDate
+    }
+
+    setLoading(true);
+    const {data: resData, status} = await createEvent(eventData, token);
+    setLoading(false);
+    if (status === 201) {
+      toast.success("Event created successfully");
+      handleClose();
+    } else {
+      toast.error(resData.message);
+    }
+    console.log(resData, status);
+}
 
   return (
     <StyledContainer maxWidth="lg">
@@ -36,7 +68,7 @@ export default function CreateEvent({open, handleOpen, handleClose}) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Add the details for the event
           </Typography>
-          <CreateEventForm onSubmit={()=>{}}/>
+          <CreateEventForm onSubmit={onSubmit} isEditing={!!eventData} eventData={eventData} />
         </Box>
       </Modal>
     </StyledContainer>
