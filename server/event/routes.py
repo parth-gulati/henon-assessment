@@ -14,3 +14,7 @@ def get_all():
 @event_routes.route('/event/delete', methods=['POST'])
 def delete_one():
     return Event().delete_event()
+
+@event_routes.route('/event/edit', methods=['PUT'])
+def edit():
+    return Event().edit_event()

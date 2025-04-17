@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useEffect } from "react";
 import React from "react";
+import { convertTo24Hour, parseDate } from "../../helpers";
 
 const timeOptions = Array.from({ length: 48 }, (_, i) => {
     const hour = Math.floor(i / 2);
@@ -41,13 +42,13 @@ const CreateEventForm = ({ onSubmit, eventData, isEditing }) => {
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            title: "",
-            type: "",
-            startDate: undefined,
-            endDate: undefined,
-            startTime: "",
-            endTime: "",
-        }
+            title: isEditing ? eventData.title : "",
+            type: isEditing ? eventData.type : "",
+            startDate: isEditing ? parseDate(eventData.startDate) : null,
+            endDate: isEditing ? parseDate(eventData.endDate) : null,
+            startTime: isEditing ?  convertTo24Hour(eventData.startTime) : "",
+            endTime: isEditing ? convertTo24Hour(eventData.endTime) : "",
+          }          
     });
 
     const startTime = useWatch({ control, name: "startTime" });
@@ -209,7 +210,7 @@ const CreateEventForm = ({ onSubmit, eventData, isEditing }) => {
 
                 <Grid item xs={12}>
                     <Button type="submit" onClick={()=>{}} variant="contained" fullWidth>
-                        Create Event
+                        {isEditing ? "Edit Event" :  "Create Event"}
                     </Button>
                 </Grid>
             </Grid>

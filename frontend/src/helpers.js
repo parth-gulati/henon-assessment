@@ -1,23 +1,14 @@
-export function updateDateTime(dateStr, timeStr) {
-    const date = new Date(dateStr);
+export function updateDateTime(dateObj, timeStr) {
     const [hours, minutes] = timeStr.split(":").map(Number);
+
+    const date = new Date(dateObj);
     date.setHours(hours);
     date.setMinutes(minutes);
     date.setSeconds(0);
     date.setMilliseconds(0);
 
-    const pad = (n) => n.toString().padStart(2, "0");
-
-    const formattedDate = `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date
-        .getFullYear()
-        .toString()
-        .slice(2)}_${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
-            date.getSeconds()
-        )}`;
-
-    return formattedDate;
-};
-
+    return date.toISOString(); 
+}
 export function formatDateForDisplay(datetimeStr) {
     const [datePart, timePart] = datetimeStr.split("_");
     const [day, month, year] = datePart.split("/").map(Number);
@@ -66,3 +57,25 @@ export function formatTimeFromDateObject(date) {
         hour12: true,
     });
 }
+
+export const parseDate = (dateStr) => {
+    const [day, month, year] = dateStr.split('/');
+    return new Date(`20${year}`, month - 1, day);
+  };
+
+export const convertTo24Hour = (time12h) => {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+    
+    console.log(time12h)
+    hours = Number(hours);
+  
+    if (modifier === 'PM' && hours !== 12) {
+      hours += 12;
+    }
+    if (modifier === 'AM' && hours === 12) {
+      hours = 0;
+    }
+  
+    return `${hours}:${minutes}`;
+  };

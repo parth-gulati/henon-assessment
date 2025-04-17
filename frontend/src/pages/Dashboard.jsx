@@ -13,12 +13,15 @@ const Dashboard = () => {
   const [events, setEvents] = useState([]);
   const [value, setValue] = React.useState(0);
   const [deletionOpen, setDeletionOpen] = useState(false);
+  const [editDetails, setEditDetails] = useState(null);
 
   const { token } = useToken();
 
   useEffect(() => {
     const fetchEvents = async () => {
       if (!open) {
+        console.log(editDetails)
+        setEditDetails(null);
         const { data, status } = await getEvents(token);
         if (status === 200) {
           setEvents(data.data.events);
@@ -29,6 +32,13 @@ const Dashboard = () => {
     }
     fetchEvents();
   }, [open, deletionOpen])
+
+  useEffect(()=>{
+    if(!!editDetails){
+      setOpen(true)
+    }
+
+  }, [editDetails])
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -55,9 +65,9 @@ const Dashboard = () => {
         <Button variant="contained" color="primary" onClick={handleOpen}>Create Event</Button>
       </StyledBox>
       <StyledContainer>
-        {value === 0 && <ListView events={events} deletionOpen={deletionOpen} setDeletionOpen={setDeletionOpen} />}
+        {value === 0 && <ListView events={events} setEditDetails={setEditDetails} deletionOpen={deletionOpen} setDeletionOpen={setDeletionOpen} />}
       </StyledContainer>
-      <CreateEvent open={open} handleClose={handleClose} handleOpen={handleOpen} />
+      <CreateEvent open={open} handleClose={handleClose} setEditDetails={setEditDetails} editDetails={editDetails} handleOpen={handleOpen} />
     </StyledContainer>
   );
 };

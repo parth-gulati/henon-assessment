@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CreateEventForm from './CreateEventForm';
 import styled from '@emotion/styled';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { updateDateTime } from '../../helpers';
-import { createEvent } from '../../api/eventApi';
+import { createEvent, editEvent } from '../../api/eventApi';
 import useToken from '../../context/useToken';
 
 
@@ -25,11 +25,13 @@ const style = {
   p: 4,
 };
 
-export default function CreateEvent({open, handleOpen, handleClose, eventData}) {
+export default function CreateEvent({ open, handleClose, editDetails }) {
 
   const [loading, setLoading] = useState(false);
 
-  const {token} = useToken();
+  const isEditing = !!editDetails;
+
+  const { token } = useToken();
 
   const onSubmit = async (data) => {
     const newStartDate = updateDateTime(data.startDate, data.startTime);
@@ -42,16 +44,33 @@ export default function CreateEvent({open, handleOpen, handleClose, eventData}) 
     }
 
     setLoading(true);
-    const {data: resData, status} = await createEvent(eventData, token);
-    setLoading(false);
-    if (status === 201) {
-      toast.success("Event created successfully");
-      handleClose();
-    } else {
-      toast.error(resData.message);
+
+    if (!isEditing) {
+      const { data: resData, status } = await createEvent(eventData, token);
+      setLoading(false);
+      if (status === 201) {
+        toast.success("Event created successfully");
+        handleClose();
+      } else {
+        toast.error(resData.message);
+      }
     }
-    console.log(resData, status);
-}
+    else {
+      const { data: resData, status } = await editEvent(eventData, token);
+      console.log(resData)
+      setLoading(false);
+      if (status === 201) {
+        toast.success("Event edited successfully");
+        handleClose();
+      } else if(status == 200){
+        toast.success("No changes done to event")
+      }
+      
+      else {
+        toast.error(resData.message);
+      }
+    }
+  }
 
   return (
     <StyledContainer maxWidth="lg">
@@ -63,12 +82,12 @@ export default function CreateEvent({open, handleOpen, handleClose, eventData}) 
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create an event.
+            {isEditing ? `Edit ${editDetails.title}` : "Create an event"}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Add the details for the event
           </Typography>
-          <CreateEventForm onSubmit={onSubmit} isEditing={!!eventData} eventData={eventData} />
+          <CreateEventForm onSubmit={onSubmit} isEditing={isEditing} eventData={editDetails} />
         </Box>
       </Modal>
     </StyledContainer>

@@ -13,7 +13,7 @@ import useToken from '../../context/useToken';
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-const ListView = ({ events, setDeletionOpen, deletionOpen }) => {
+const ListView = ({ events, setDeletionOpen, deletionOpen, setEditDetails }) => {
 
     const {token} = useToken();
 
@@ -56,6 +56,39 @@ const columns = [
             );
         },
     },
+
+    {
+        field: 'edit',
+        headerName: 'Edit',
+        renderCell: (params) => {
+            const handleEdit = () => {
+                const fromDate = new Date(params.row.from)
+                const toDate = new Date(params.row.to)
+
+                const fromDateString = formatDateFromDateObject(fromDate);
+                const fromTimeString = formatTimeFromDateObject(fromDate);
+                const toDateString = formatDateFromDateObject(toDate);
+                const toTimeString = formatTimeFromDateObject(toDate);
+
+                setEditDetails({
+                    startDate: fromDateString, 
+                    startTime: fromTimeString, 
+                    endDate: toDateString, 
+                    endTime: toTimeString,
+                    title: params.row.title,
+                    type: params.row.type,
+                    _id: params.row._id
+                })
+
+            };
+
+            return (
+                <Button color="warning" onClick={handleEdit}>
+                    Edit
+                </Button>
+            );
+        },
+    },
 ];
 
     const [selectedRow, setSelectedRow] = React.useState(null); 
@@ -63,7 +96,6 @@ const columns = [
     const handleDelete = async () => {
         if (selectedRow) {
             const res = await deleteEvent(selectedRow.title, token);
-            console.log(res);
             setDeletionOpen(false);
         }
     };

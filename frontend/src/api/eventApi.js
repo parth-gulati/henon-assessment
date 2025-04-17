@@ -33,6 +33,26 @@ export const createEvent = async (data, token) => {
     }
 }
 
+export const editEvent = async (data, token) => {
+    try {
+        console.log(data)
+        const res = await axios.put(
+            `${base_url}/event/edit`,
+            {
+                title: data.title,
+                type: data.type,
+                from: data.from,
+                to: data.to
+            },
+            { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` } }
+        );
+        return { data: res.data, status: res.status };
+    } catch (error) {
+        console.log(error.response)
+        return { data: error.response.data, status: error.response.status }
+    }
+}
+
 export const deleteEvent = async (title, token) => {
     try {
         const res = await axios.post(
