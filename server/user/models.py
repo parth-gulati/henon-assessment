@@ -31,8 +31,6 @@ class User:
         }
 
         user['password'] = pbkdf2_sha256.encrypt(user['password'])
-
-        print(user)
         
         if db.users.find_one({"email": user['email']}):
             return jsonify({"status": "error", "message": "Email already in use"}), 400
