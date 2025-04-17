@@ -1,0 +1,1 @@
+DATE_FORMAT = "%d/%m/%y_%H:%M:%S"

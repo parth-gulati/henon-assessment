@@ -53,6 +53,9 @@ jwt = JWTManager(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 from user.routes import user_routes
+from event.routes import event_routes
+# Register the blueprints
+app.register_blueprint(event_routes)
 app.register_blueprint(user_routes)
 
 # tester

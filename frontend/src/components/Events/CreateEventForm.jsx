@@ -56,25 +56,29 @@ const CreateEventForm = ({ onSubmit }) => {
     const endDate = useWatch({ control, name: "endDate" });
 
     useEffect(() => {
-        const startIdx = timeOptions.findIndex((t) => t.value === startTime);
-        const endIdx = timeOptions.findIndex((t) => t.value === endTime);
-
+        if (!startDate || !endDate) return;
+    
         if (startDate > endDate) {
             setValue("endDate", startDate);
             trigger("endDate");
         }
-
-        if (startIdx !== -1 && (endIdx === -1 || endIdx <= startIdx) && startDate == endDate) {
-            const nextTime = timeOptions[startIdx + 1]?.value || timeOptions[startIdx].value;
-            setValue("endTime", nextTime);
-            trigger("endTime");
+    
+        if (startDate.getTime() === endDate.getTime() && startTime) {
+            const startIdx = timeOptions.findIndex((t) => t.value === startTime);
+            const endIdx = timeOptions.findIndex((t) => t.value === endTime);
+    
+            if (startIdx !== -1 && (endIdx === -1 || endIdx <= startIdx)) {
+                const nextTime = timeOptions[startIdx + 1]?.value || timeOptions[startIdx].value;
+                setValue("endTime", nextTime);
+                trigger("endTime");
+            }
         }
-    }, [startTime, endTime, startDate, endDate]);
+    }, [startTime, endTime, startDate, endDate, setValue, trigger]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
             <Grid container spacing={2} style={{width: "100%"}}>
-                <Grid item xs={12} md={12} lg={12}>
+                <Grid item xs={12} md={12} lg={12} style={{marginTop: '20px'}}>
                     <Controller
                         name="title"
                         control={control}

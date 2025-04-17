@@ -15,6 +15,7 @@ const style = {
   maxWidth: 800,
   transform: 'translate(-50%, -50%)',
   boxShadow: 24,
+  backdropFilter: 'blur(5px)',
   p: 4,
 };
 

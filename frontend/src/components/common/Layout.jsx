@@ -18,7 +18,6 @@ const Layout = ({ token, removeToken }) => {
     useEffect(() => {
         const getUser = async () => {
             const user = await getuser(token);
-            console.log(user)
             if (user.status == 401) {
                 await logout();
                 logoutUser();
