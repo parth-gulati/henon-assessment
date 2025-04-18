@@ -9,6 +9,11 @@ import { useEffect } from "react";
 import React from "react";
 import { convertTo24Hour, parseDate } from "../../helpers";
 
+
+// statically defined for now, but can be dynamic in future
+
+import { EVENT_TYPES } from "../../helpers";
+
 const timeOptions = Array.from({ length: 48 }, (_, i) => {
     const hour = Math.floor(i / 2);
     const min = i % 2 === 0 ? "00" : "30";
@@ -17,9 +22,6 @@ const timeOptions = Array.from({ length: 48 }, (_, i) => {
         value: `${hour}:${min}`,
     };
 });
-
-// statically defined for now, but can be dynamic in future
-const EVENT_TYPES = ["Merger", "Dividends", "New Capital", "Hire"];
 
 const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),

@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound';
 
 import './App.css'
 import { CssBaseline } from '@mui/material';
+import Demo from './pages/Demo';
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -29,6 +30,7 @@ function App() {
             </Route>
             <Route path='/signin' element={<SignIn token={token} setToken={setToken} />} />
             <Route path='/signup' element={<SignUp token={token} setToken={setToken} />} />
+          <Route path="/demo" element={ <Demo/> } />
             <Route path="/404" element={<NotFound/>} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Route>

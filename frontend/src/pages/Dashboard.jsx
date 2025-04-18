@@ -6,10 +6,13 @@ import { useEffect } from "react"
 import { getEvents } from "../api/eventApi"
 import useToken from '../context/useToken'
 import ListView from '../components/Events/ListView';
+import CalendarView from '../components/Events/CalendarView';
+import { toast } from 'react-toastify';
+import DemoView from '../components/Events/DemoView';
 
 const Dashboard = () => {
 
-  const [open, setOpen] = React.useState(false); 
+  const [open, setOpen] = React.useState(false);
   const [events, setEvents] = useState([]);
   const [value, setValue] = React.useState(0);
   const [deletionOpen, setDeletionOpen] = useState(false);
@@ -33,8 +36,8 @@ const Dashboard = () => {
     fetchEvents();
   }, [open, deletionOpen])
 
-  useEffect(()=>{
-    if(!!editDetails){
+  useEffect(() => {
+    if (!!editDetails) {
       setOpen(true)
     }
 
@@ -64,9 +67,21 @@ const Dashboard = () => {
         </Tabs>
         <Button variant="contained" color="primary" onClick={handleOpen}>Create Event</Button>
       </StyledBox>
-      <StyledContainer>
-        {value === 0 && <ListView events={events} setEditDetails={setEditDetails} deletionOpen={deletionOpen} setDeletionOpen={setDeletionOpen} />}
-      </StyledContainer>
+      {value === 0 &&
+
+        (
+          <StyledContainer>
+            <ListView events={events} setEditDetails={setEditDetails} deletionOpen={deletionOpen} setDeletionOpen={setDeletionOpen} />
+          </StyledContainer>
+        )
+      }
+      {/* {value == 1 &&  <DemoView/> } */}
+      {value == 1 &&
+        (
+          <Container sx={{marginTop: "30px"}}>
+            <CalendarView events={events} />
+          </Container>
+        )}
       <CreateEvent open={open} handleClose={handleClose} setEditDetails={setEditDetails} editDetails={editDetails} handleOpen={handleOpen} />
     </StyledContainer>
   );

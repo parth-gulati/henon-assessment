@@ -7,7 +7,7 @@ export function updateDateTime(dateObj, timeStr) {
     date.setSeconds(0);
     date.setMilliseconds(0);
 
-    return date.toISOString(); 
+    return date.toISOString();
 }
 export function formatDateForDisplay(datetimeStr) {
     const [datePart, timePart] = datetimeStr.split("_");
@@ -61,21 +61,33 @@ export function formatTimeFromDateObject(date) {
 export const parseDate = (dateStr) => {
     const [day, month, year] = dateStr.split('/');
     return new Date(`20${year}`, month - 1, day);
-  };
+};
 
 export const convertTo24Hour = (time12h) => {
     const [time, modifier] = time12h.split(' ');
     let [hours, minutes] = time.split(':');
-    
+
     console.log(time12h)
     hours = Number(hours);
-  
+
     if (modifier === 'PM' && hours !== 12) {
-      hours += 12;
+        hours += 12;
     }
     if (modifier === 'AM' && hours === 12) {
-      hours = 0;
+        hours = 0;
     }
-  
+
     return `${hours}:${minutes}`;
-  };
+};
+
+export const EVENT_TYPES = ["Merger", "Dividends", "New Capital", "Hire"];
+
+export const GROUP_MAPPING = EVENT_TYPES.reduce((acc, type, index) => {
+    acc[type] = index + 1;
+    return acc;
+  }, {});
+  
+export const GROUPS = EVENT_TYPES.map((type, index) => ({
+    id: index + 1,
+    title: type
+  }));

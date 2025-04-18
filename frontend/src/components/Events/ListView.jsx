@@ -83,7 +83,7 @@ const columns = [
             };
 
             return (
-                <Button color="warning" onClick={handleEdit}>
+                <Button color="secondary" onClick={handleEdit}>
                     Edit
                 </Button>
             );
