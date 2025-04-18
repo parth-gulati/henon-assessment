@@ -4,6 +4,19 @@ from datetime import datetime, timezone
 from app import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
+"""
+    Event class to handle event management.
+    This class provides methods for creating, editing, deleting, and fetching events.
+    It uses JWT for session management and MongoDB for data storage.
+    Attributes:
+        db: MongoDB database instance.
+        jwt: JWTManager instance for handling JWT tokens.
+    Methods:
+        create_event(): Creates a new event in the database.
+        edit_event(): Edits an existing event in the database.
+        get_user_events(): Fetches all events for the current user.
+        delete_event(): Deletes an event from the database.
+"""
 class Event:
     @jwt_required()
     def create_event(self):

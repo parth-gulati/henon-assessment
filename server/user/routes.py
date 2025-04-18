@@ -1,3 +1,6 @@
+# This file contains the routes for user management.
+# Includes routes for user signup, login, logout, and fetching user details.
+
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 from user.models import User

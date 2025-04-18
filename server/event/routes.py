@@ -1,3 +1,6 @@
+# This file contains the routes for event management.
+# Includes routes for creating, editing, deleting, and fetching events.
+
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 from event.models import Event

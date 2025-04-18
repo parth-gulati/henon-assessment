@@ -5,6 +5,21 @@ from app import db, jwt
 from datetime import datetime
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
                                unset_jwt_cookies, jwt_required, JWTManager
+    
+"""
+    User class to handle user authentication and management.
+    This class provides methods for user signup, login, logout, and fetching user details.
+    It uses JWT for session management and MongoDB for data storage.
+    Attributes:
+        db: MongoDB database instance. -> imported from app.py
+        jwt: JWTManager instance for handling JWT tokens. -> imported from app.py
+    Methods:
+        start_session(user): Starts a session for the user and returns an access token.
+        sign_out(): Signs out the user by clearing the session and JWT cookies.
+        signup(): Handles user signup by creating a new user in the database.
+        login(): Handles user login by verifying credentials and starting a session.
+        get_user(): Fetches the current user's details from the database.
+"""
 
 class User:
     def start_session(self, user):

@@ -1,3 +1,4 @@
+# app.py - Flask application for managing user sessions and events.
 
 from datetime import datetime, timedelta, timezone
 from flask import Flask, json
