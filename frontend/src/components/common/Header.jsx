@@ -22,7 +22,7 @@ const Header = ({ token, removeToken }) => {
   return (
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h6" onClick={() => navigate("/dashboard")} sx={{ cursor: "pointer" }}>
+        <Typography variant="h6" onClick={() => navigate("/")} sx={{ cursor: "pointer" }}>
           Event Planner
         </Typography>
         {!!token && (

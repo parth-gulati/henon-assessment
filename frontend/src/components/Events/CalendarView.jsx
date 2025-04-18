@@ -18,7 +18,7 @@ const CalendarView = ({ events, setEvents }) => {
 
   useEffect(() => {
     setItems(events.map((event, idx) => ({
-      id: idx,
+      id: event._id,
       group: GROUP_MAPPING[event.type],
       title: event.title,
       start_time: moment(event.from),
@@ -26,8 +26,8 @@ const CalendarView = ({ events, setEvents }) => {
     })))
   }, [events])
 
-  const defaultTimeStart = moment().startOf("week").toDate();
-  const defaultTimeEnd = moment().startOf("week").add(7, "day").toDate();
+  const defaultTimeStart = moment().startOf("day").toDate();
+  const defaultTimeEnd = moment().startOf("day").add(7, "day").toDate();
 
   const handleItemMove = async (itemId, dragTime, newGroupOrder) => {
     const item = items.find(i => i.id === itemId);
@@ -57,7 +57,7 @@ const CalendarView = ({ events, setEvents }) => {
         toast.success("Successfully moved event");
       } else {
         console.error("Failed to move event", res.data);
-        toast.error(res.data.message);
+        toast.error(res.data.message || res.data.msg);
       }
     } catch (error) {
       console.error("Failed to move event", error);
@@ -94,7 +94,6 @@ const CalendarView = ({ events, setEvents }) => {
             transform: isActive ? "scale(1.05)" : "scale(1)",
             transition: "transform 0.1s ease, opacity 0.1s ease",
           },
-          onMouseDown: () => console.log("Clicked item", item)
         })}
       >
         {itemContext.useResizeHandle && <div {...leftResizeProps} />}
@@ -111,6 +110,46 @@ const CalendarView = ({ events, setEvents }) => {
       </div>
     );
   };
+
+  const onItemResize = async (itemId, time, edge) => {
+    const item = items.find(i => i.id === itemId);
+    if (!item) return;
+
+    console.log(edge == 'left')
+    console.log(edge == 'right')
+
+    const newStartTime = edge == "left" ? moment(time) : moment(item.start_time);
+    const newEndTime = edge == "right" ? moment(time) : moment(item.end_time);
+    const newType = EVENT_TYPES[item.group-1];
+    console.log(newStartTime, newEndTime, newType);
+    try {
+      const res = await editEvent({
+        title: item.title,
+        type: newType,
+        from: newStartTime.toISOString(),
+        to: newEndTime.toISOString()
+      }, token);
+
+      if (res.status === 200 || res.status === 201) {
+        setEvents(prevEvents =>
+          prevEvents.map(ev =>
+            ev.title === item.title
+              ? { ...ev, from: newStartTime.toISOString(), to: newEndTime.toISOString(), type: newType }
+              : ev
+          )
+        );
+        toast.success("Successfully resized event");
+      } else {
+        console.error("Failed to resize event", res.data);
+        toast.error(res.data.message || res.data.msg);
+      }
+    } catch (error) {
+      console.error("Failed to resize event", error);
+      toast.error("Failed to resize event");
+    }
+
+  }
+
 
   const visibleGroups = useMemo(
     () => groups.filter(g => selectedGroupIds.includes(g.id)),
@@ -169,6 +208,7 @@ const CalendarView = ({ events, setEvents }) => {
         itemRenderer={itemRenderer}
         canMove={true}
         canResize="both"
+        onItemResize={onItemResize}
         onItemMove={handleItemMove}
         defaultTimeEnd={defaultTimeEnd}
       />

@@ -167,6 +167,7 @@ const CreateEventForm = ({ onSubmit, eventData, isEditing }) => {
                 <Grid item xs={6}>
                     <Controller
                         name="startTime"
+                        defaultValue=""
                         control={control}
                         render={({ field, fieldState }) => (
                             <TextField
@@ -191,6 +192,7 @@ const CreateEventForm = ({ onSubmit, eventData, isEditing }) => {
                     <Controller
                         name="endTime"
                         control={control}
+                        defaultValue=""
                         render={({ field, fieldState }) => (
                             <TextField
                                 fullWidth
@@ -211,7 +213,7 @@ const CreateEventForm = ({ onSubmit, eventData, isEditing }) => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Button type="submit" onClick={()=>{}} variant="contained" fullWidth>
+                    <Button type="submit" variant="contained" fullWidth>
                         {isEditing ? "Edit Event" :  "Create Event"}
                     </Button>
                 </Grid>
