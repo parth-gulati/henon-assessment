@@ -32,6 +32,9 @@ app.secret_key = SECRET_KEY
 app.config['JWT_SECRET_KEY'] = SECRET_KEY
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
+# @app.after_request - This function is called after every request
+# It checks if the JWT token is about to expire and refreshes it if necessary
+# It adds the new token to the response data
 @app.after_request
 def refresh_expiring_jwts(response):
     try:
@@ -58,14 +61,3 @@ from event.routes import event_routes
 # Register the blueprints
 app.register_blueprint(event_routes)
 app.register_blueprint(user_routes)
-
-# tester
-@app.route('/profile')
-@jwt_required()
-def my_profile():
-    response_body = {
-        "name": "Parthi",
-        "about" :"Hello! I'm a full stack developer that loves python and javascript"
-    }
-
-    return response_body

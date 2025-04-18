@@ -11,8 +11,8 @@ from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
     This class provides methods for user signup, login, logout, and fetching user details.
     It uses JWT for session management and MongoDB for data storage.
     Attributes:
-        db: MongoDB database instance. -> imported from app.py
-        jwt: JWTManager instance for handling JWT tokens. -> imported from app.py
+        db: MongoDB database instance. -> not class attribute, imported from app.py
+        jwt: JWTManager instance for handling JWT tokens. -> not class attribute, imported from app.py
     Methods:
         start_session(user): Starts a session for the user and returns an access token.
         sign_out(): Signs out the user by clearing the session and JWT cookies.

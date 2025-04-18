@@ -9,8 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
     This class provides methods for creating, editing, deleting, and fetching events.
     It uses JWT for session management and MongoDB for data storage.
     Attributes:
-        db: MongoDB database instance.
-        jwt: JWTManager instance for handling JWT tokens.
+        db: MongoDB database instance. -> not class attribute, imported from app.py
     Methods:
         create_event(): Creates a new event in the database.
         edit_event(): Edits an existing event in the database.
