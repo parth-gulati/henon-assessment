@@ -1,8 +1,14 @@
-import { Typography, Container, Paper, Box, TextField, Button } from "@mui/material";
+import { Typography, Container, Paper, Box } from "@mui/material";
 import styled from '@emotion/styled';
 import facepaint from 'facepaint'
 import { Link } from "react-router";
+
+// breakpoints for responsive design
 const breakpoints = [480, 768, 1024, 1440];
+// media query for responsive design
+// using facepaint for media queries
+// this allows for an array of breakpoints to be passed in
+// and generates the media queries for each breakpoint
 const mq = facepaint(breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 import SignUpForm from "../components/Auth/SignUpForm"

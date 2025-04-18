@@ -1,3 +1,7 @@
+// eventApi.js - This file contains functions to interact with the backend API for event management.
+// It includes functions to get all events, create a new event, edit an existing event,
+// and delete an event.
+
 import axios from "axios";
 const base_url = import.meta.env.VITE_BASE_URL
 

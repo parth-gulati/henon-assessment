@@ -1,10 +1,13 @@
+// CreateEvent.jsx - This file is a React component that renders a modal 
+// for creating or editing events.
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CreateEventForm from './CreateEventForm';
+
 import styled from '@emotion/styled';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
@@ -45,6 +48,7 @@ export default function CreateEvent({ open, handleClose, editDetails }) {
 
     setLoading(true);
 
+    // If not editing, create a new event
     if (!isEditing) {
       const { data: resData, status } = await createEvent(eventData, token);
       setLoading(false);
@@ -56,6 +60,7 @@ export default function CreateEvent({ open, handleClose, editDetails }) {
       }
     }
     else {
+      // If editing, update the existing event
       const { data: resData, status } = await editEvent(eventData, token);
       setLoading(false);
       if (status === 201) {

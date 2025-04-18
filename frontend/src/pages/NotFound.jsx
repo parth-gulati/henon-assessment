@@ -1,3 +1,6 @@
+// NotFound.jsx - This file is a React component that renders a 404 Not Found page.
+// It provides a link to navigate back to the home page.
+
 import React from 'react';
 import { Container, Typography, Link } from '@mui/material';
 import { useNavigate } from 'react-router';

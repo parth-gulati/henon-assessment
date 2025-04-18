@@ -1,3 +1,7 @@
+// useToken.js - This file contains a custom hook for managing the 
+// authentication token in local storage. It provides functions to get, 
+// set, and remove the token from local storage.
+
 import { useState } from 'react';
 
 function useToken() {

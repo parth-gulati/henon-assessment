@@ -1,22 +1,35 @@
-import * as React from 'react';
+// ListView.jsx - this file is a React component that renders a list of events in a data grid format. 
+// It allows users to view, edit, and delete events. 
+// The component uses Material-UI for styling and layout, and it 
+// interacts with an API to fetch and manage event data.
+
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
-import { formatDateFromDateObject, formatTimeFromDateObject } from '../../helpers';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+
+import * as React from 'react';
 import { deleteEvent } from '../../api/eventApi';
+import { formatDateFromDateObject, formatTimeFromDateObject } from '../../helpers';
 import useToken from '../../context/useToken';
 
+// paginationModel is an object that defines the initial 
+// state of pagination for the DataGrid
 const paginationModel = { page: 0, pageSize: 5 };
 
 const ListView = ({ events, setDeletionOpen, deletionOpen, setEditDetails }) => {
 
     const {token} = useToken();
 
+// Define the columns for the DataGrid
+// Each column has a field name, header name, and some have custom renderers
+// The 'delete' and 'edit' columns have buttons to handle deletion and editing of events
+// The 'fromDate', 'fromTime', 'toDate', and 'toTime' columns format the date and time
+// from the event object
 const columns = [
     { field: 'title', headerName: 'Title' },
     { field: 'type', headerName: 'Type'},

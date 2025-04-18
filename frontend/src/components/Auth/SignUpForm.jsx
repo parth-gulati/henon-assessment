@@ -1,3 +1,8 @@
+// SignUpForm.jsx - This file defines a SignUpForm component for a React application.
+// It uses Material-UI for styling and form validation using React Hook Form and Yup.
+// The form includes fields for first name, last name, email, password, and confirm password.
+// It also handles form submission and displays success or error messages using react-toastify.
+
 import { Box, TextField, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import { useForm, Controller } from "react-hook-form";
@@ -5,7 +10,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { getuser, signup } from "../../api/authenticationApi";
+import { signup } from "../../api/authenticationApi";
 
 const SignUpSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),

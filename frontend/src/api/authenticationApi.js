@@ -1,3 +1,6 @@
+// authenticationApi.js - This file contains functions to handle user authentication
+// including login, logout, signup, and fetching user details.
+
 import axios from 'axios'
 const base_url = import.meta.env.VITE_BASE_URL
 

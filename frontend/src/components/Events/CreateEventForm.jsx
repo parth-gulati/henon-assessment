@@ -1,6 +1,9 @@
-import { Box, TextField, Button, MenuItem } from "@mui/material";
+//CreateEventForm.jsx - this file is a React component that renders a form for
+// creating or editing events.
+
+import { TextField, Button, MenuItem } from "@mui/material";
 import Grid from '@mui/material/GridLegacy';
-import styled from "@emotion/styled";
+
 import { useForm, Controller, useWatch } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +17,9 @@ import { convertTo24Hour, parseDate } from "../../helpers";
 
 import { EVENT_TYPES } from "../../helpers";
 
+// This function generates an array of time options in 30-minute intervals
+// for a 24-hour format. It creates 48 options, each representing a half-hour increment.
+// The time is formatted as "HH:MM" and the label is formatted as "HH:MM AM/PM".
 const timeOptions = Array.from({ length: 48 }, (_, i) => {
     const hour = Math.floor(i / 2);
     const min = i % 2 === 0 ? "00" : "30";
@@ -22,6 +28,16 @@ const timeOptions = Array.from({ length: 48 }, (_, i) => {
         value: `${hour}:${min}`,
     };
 });
+
+// This schema defines the validation rules for the form fields using Yup.
+// Each field is required and has specific validation rules.
+// The 'type' field must be one of the predefined event types.
+// The 'startDate' and 'endDate' fields must be valid dates.
+// The 'startTime' and 'endTime' fields must be valid time strings.
+// The 'endDate' must be greater than or equal to the 'startDate'.
+// The 'endTime' must be greater than or equal to the 'startTime'.
+// The 'startDate' and 'endDate' fields are validated using the 'date' method from Yup.
+// The 'startTime' and 'endTime' fields are validated using the 'string' method from Yup.
 
 const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),

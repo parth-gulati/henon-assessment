@@ -1,9 +1,13 @@
+// SignInForm.jsx - This file defines a sign-in form component for a React application.
+// It uses Material-UI for styling and form validation using React Hook Form and Yup.
+// The form includes fields for email and password, and handles submission with an API call.
+
 import { Box, TextField, Button } from "@mui/material"
 import styled from '@emotion/styled';
 import { useForm, Controller } from "react-hook-form"
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getuser, login } from "../../api/authenticationApi";
+import { login } from "../../api/authenticationApi";
 import { toast } from "react-toastify";
 import { useState } from "react";
 

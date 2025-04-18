@@ -1,16 +1,7 @@
-import { createTheme } from "@mui/material/styles";
+// Theme.jsx - This file defines a custom dark theme for a React application using Material-UI.
+// It sets the primary and secondary colors, background colors, text colors, and typography.
 
-export const lightTheme = createTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#141414',
-    },
-    secondary: {
-      main: '#4db6ac',
-    },
-  },
-})
+import { createTheme } from "@mui/material/styles";
 
 export const darkTheme = createTheme({
   palette: {

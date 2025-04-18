@@ -1,8 +1,12 @@
+// Layout.jsx - This file defines the layout of the application.
+// It includes the header and a styled container for the main content.
+// It also handles user authentication and redirects to the sign-in page if the
+// user is not authenticated.
 
 import { Container } from "@mui/material";
 import Header from "./Header";
 import { ThemeProvider } from '@mui/material/styles'
-import { lightTheme, darkTheme } from "./Theme";
+import { darkTheme } from "./Theme";
 import styled from '@emotion/styled'
 import { Outlet, useNavigate } from "react-router";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +19,7 @@ const Layout = ({ token, removeToken }) => {
     const { loginUser, logoutUser } = useUser();
     const navigate = useNavigate();
 
+    // if token is not present or has expired, redirect to sign in page
     useEffect(() => {
         const getUser = async () => {
             const user = await getuser(token);

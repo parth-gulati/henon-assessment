@@ -1,3 +1,8 @@
+// Header.jsx - This file defines the header of the application.
+// It includes the application title and a logout button.
+// The logout button calls the logout function from the authentication API
+// and removes the token from local storage.
+
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';

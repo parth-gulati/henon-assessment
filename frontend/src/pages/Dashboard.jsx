@@ -1,3 +1,8 @@
+// Dashboard.jsx - This file contains the Dashboard component
+// which is the main page of the application. It displays a list 
+// of events and allows the user to create new events or view them in 
+// a calendar format.
+
 import React, { useState } from 'react';
 import { Typography, Container, Button, Box, Tabs, Tab } from '@mui/material';
 import styled from '@emotion/styled';
@@ -21,7 +26,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
+      // Fetch events from the API when the component mounts
+      // or when the deletion confirmation modal / edit/create new
+      // event modal is closed -> implying that the events have 
+      // possibly been updated
       if (!open) {
+        // if the modal is closed, remove the prefilled data
         setEditDetails(null);
         const { data, status } = await getEvents(token);
         if (status === 200) {

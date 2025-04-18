@@ -1,14 +1,17 @@
 import Timeline from 'react-calendar-timeline'
-import 'react-calendar-timeline/dist/style.css'
-import 'react-calendar-timeline/dist/Timeline.scss'
-import moment from 'moment'
-import { GROUP_MAPPING, GROUPS, EVENT_TYPES } from '../../helpers'
-import './timeline.scss'
+import { Tab, Box } from '@mui/material';
+
 import { useEffect, useState, useMemo } from 'react'
 import { editEvent } from '../../api/eventApi'
 import useToken from '../../context/useToken'
 import { toast } from 'react-toastify';
-import { Tab, Box } from '@mui/material';
+import moment from 'moment'
+import { GROUP_MAPPING, GROUPS, EVENT_TYPES } from '../../helpers'
+
+// react-calendar-timeline styles
+import 'react-calendar-timeline/dist/style.css'
+import 'react-calendar-timeline/dist/Timeline.scss'
+import './timeline.scss'
 
 const CalendarView = ({ events, setEvents }) => {
   const [groups] = useState(GROUPS)

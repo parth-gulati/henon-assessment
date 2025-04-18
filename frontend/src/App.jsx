@@ -1,7 +1,10 @@
+// App.jsx - This file is the main entry point of the React application.
+// It sets up the routing and context providers for the application.
+// It uses React Router for navigation and Material-UI for styling.
+
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router'
 import useToken from './context/useToken';
 import { ToastContainer } from 'react-toastify';
-import './App.css'
 import { CssBaseline } from '@mui/material';
 
 import { UserProvider } from './context/UserContext';
