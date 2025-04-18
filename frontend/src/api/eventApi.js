@@ -2,7 +2,7 @@
 // It includes functions to get all events, create a new event, edit an existing event,
 // and delete an event.
 
-import axios from "axios";
+import axios from './axiosInstance'
 const base_url = import.meta.env.VITE_BASE_URL
 
 export const getEvents = async (token) => {

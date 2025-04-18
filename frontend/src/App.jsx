@@ -3,7 +3,6 @@
 // It uses React Router for navigation and Material-UI for styling.
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router'
-import useToken from './context/useToken';
 import { ToastContainer } from 'react-toastify';
 import { CssBaseline } from '@mui/material';
 
@@ -15,10 +14,21 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import NotFound from './pages/NotFound';
 
+import useToken from './context/useToken';
+import { useEffect } from 'react';
+import { useLoading } from './context/LoadingContext';
+import { setupInterceptors } from './api/axiosInstance';
+
 function App() {
   const { token, setToken, removeToken } = useToken();
+  const { loading, setLoading } = useLoading();
+
+  useEffect(() => {
+    setupInterceptors(setLoading);
+  }, []);
 
   return (
+    <>
     <UserProvider>
       <Router>
         <ToastContainer />
@@ -38,6 +48,7 @@ function App() {
         </Routes>
       </Router>
     </UserProvider>
+    </>
   );
 }
 

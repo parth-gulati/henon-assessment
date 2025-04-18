@@ -13,6 +13,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useEffect } from "react";
 import { getuser, logout } from "../../api/authenticationApi";
 import { useUser } from "../../context/UserContext";
+import GlobalLoader from '../common/GlobalLoader';
 
 const Layout = ({ token, removeToken }) => {
 
@@ -40,6 +41,7 @@ const Layout = ({ token, removeToken }) => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
+            <GlobalLoader />
             <Header token={token} removeToken={removeToken} />
             <StyledContainer>
                 <Outlet />
