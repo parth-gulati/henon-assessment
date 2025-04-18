@@ -15,14 +15,16 @@ load_dotenv()
 
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
+MONGODB_URI_SUFFIX = os.getenv('MONGODB_URI_SUFFIX')
 encoded_secret = os.getenv("SECRET_KEY_BASE64")
 SECRET_KEY = base64.b64decode(encoded_secret)
 
 username = urllib.parse.quote_plus(USERNAME)
 password = urllib.parse.quote_plus(PASSWORD)
 
+
 # Correctly formatted URI
-uri = f"mongodb+srv://{username}:{password}@cluster0.q9ngmv0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = f"mongodb+srv://{username}:{password}@{MONGODB_URI_SUFFIX}"
 # Database
 client = pymongo.MongoClient(uri)
 db = client.henon
