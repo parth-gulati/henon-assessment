@@ -3,7 +3,6 @@ const base_url = import.meta.env.VITE_BASE_URL
 
 export const login = async (data) => {
     try {
-        console.log(data)
         const res = await axios.post(
             `${base_url}/user/signin`,
             data,
@@ -11,7 +10,6 @@ export const login = async (data) => {
         );
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 };
@@ -24,7 +22,6 @@ export const logout = async () => {
         return { data: res.data, status: res.status };
     }
     catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 }
@@ -43,7 +40,6 @@ export const signup = async (data) => {
         );
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 };
@@ -57,7 +53,6 @@ export const getuser = async (token) => {
 
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 

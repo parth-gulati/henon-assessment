@@ -8,7 +8,6 @@ import useToken from '../context/useToken'
 import ListView from '../components/Events/ListView';
 import CalendarView from '../components/Events/CalendarView';
 import { toast } from 'react-toastify';
-import DemoView from '../components/Events/DemoView';
 
 const Dashboard = () => {
 

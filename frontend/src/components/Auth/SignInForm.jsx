@@ -31,7 +31,6 @@ const SignInForm = ({setToken}) => {
     const onSubmit = async (data) => {
         setLoading(true)
         const res = await login(data)
-        console.log(res)
         setLoading(false)
 
         if(res.status==200){
@@ -39,7 +38,6 @@ const SignInForm = ({setToken}) => {
             setToken(res.data.data.access_token)
         }
         else{
-            console.log(res)
             toast.error(res.data.message)
         }
         

@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router'
 import useToken from './context/useToken';
 import { ToastContainer } from 'react-toastify';
+import './App.css'
+import { CssBaseline } from '@mui/material';
 
 import { UserProvider } from './context/UserContext';
 import Layout from './components/common/Layout';
@@ -9,10 +11,6 @@ import Dashboard from './pages/Dashboard';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import NotFound from './pages/NotFound';
-
-import './App.css'
-import { CssBaseline } from '@mui/material';
-import Demo from './pages/Demo';
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -23,6 +21,7 @@ function App() {
         <ToastContainer />
 
         <CssBaseline/>
+        {/* Routing - using Browser Router */}
         <Routes>
           <Route element={<Layout token={token} removeToken={removeToken} />}>
             <Route element={<PrivateWrapper auth={{ token: token }} />}>
@@ -30,7 +29,6 @@ function App() {
             </Route>
             <Route path='/signin' element={<SignIn token={token} setToken={setToken} />} />
             <Route path='/signup' element={<SignUp token={token} setToken={setToken} />} />
-          <Route path="/demo" element={ <Demo/> } />
             <Route path="/404" element={<NotFound/>} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Route>

@@ -57,7 +57,6 @@ export default function CreateEvent({ open, handleClose, editDetails }) {
     }
     else {
       const { data: resData, status } = await editEvent(eventData, token);
-      console.log(resData)
       setLoading(false);
       if (status === 201) {
         toast.success("Event edited successfully");

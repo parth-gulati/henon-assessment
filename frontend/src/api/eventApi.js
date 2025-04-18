@@ -9,7 +9,6 @@ export const getEvents = async (token) => {
         )
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 }
@@ -28,7 +27,6 @@ export const createEvent = async (data, token) => {
         );
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 }
@@ -47,7 +45,6 @@ export const editEvent = async (data, token) => {
         );
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 }
@@ -63,7 +60,6 @@ export const deleteEvent = async (title, token) => {
         );
         return { data: res.data, status: res.status };
     } catch (error) {
-        console.log(error.response)
         return { data: error.response.data, status: error.response.status }
     }
 }

@@ -34,7 +34,6 @@ const SignUpForm = ({setToken}) => {
     const onSubmit = async (data) => {
       setLoading(true);
       const { confirmPassword, ...formData } = data;
-      console.log(formData)
       const res = await signup(formData);
       setLoading(false);
   

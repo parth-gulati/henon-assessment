@@ -66,8 +66,6 @@ export const parseDate = (dateStr) => {
 export const convertTo24Hour = (time12h) => {
     const [time, modifier] = time12h.split(' ');
     let [hours, minutes] = time.split(':');
-
-    console.log(time12h)
     hours = Number(hours);
 
     if (modifier === 'PM' && hours !== 12) {

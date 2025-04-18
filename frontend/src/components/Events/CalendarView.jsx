@@ -115,13 +115,9 @@ const CalendarView = ({ events, setEvents }) => {
     const item = items.find(i => i.id === itemId);
     if (!item) return;
 
-    console.log(edge == 'left')
-    console.log(edge == 'right')
-
     const newStartTime = edge == "left" ? moment(time) : moment(item.start_time);
     const newEndTime = edge == "right" ? moment(time) : moment(item.end_time);
     const newType = EVENT_TYPES[item.group-1];
-    console.log(newStartTime, newEndTime, newType);
     try {
       const res = await editEvent({
         title: item.title,
