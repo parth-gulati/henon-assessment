@@ -23,7 +23,6 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       if (!open) {
-        console.log(editDetails)
         setEditDetails(null);
         const { data, status } = await getEvents(token);
         if (status === 200) {
@@ -75,11 +74,10 @@ const Dashboard = () => {
           </StyledContainer>
         )
       }
-      {/* {value == 1 &&  <DemoView/> } */}
       {value == 1 &&
         (
           <Container sx={{marginTop: "30px"}}>
-            <CalendarView events={events} />
+            <CalendarView events={events} setEvents={setEvents} />
           </Container>
         )}
       <CreateEvent open={open} handleClose={handleClose} setEditDetails={setEditDetails} editDetails={editDetails} handleOpen={handleOpen} />

@@ -35,7 +35,6 @@ export const createEvent = async (data, token) => {
 
 export const editEvent = async (data, token) => {
     try {
-        console.log(data)
         const res = await axios.put(
             `${base_url}/event/edit`,
             {
