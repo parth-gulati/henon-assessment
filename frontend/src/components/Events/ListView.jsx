@@ -127,15 +127,15 @@ const columns = [
     }));
 
     return (
-        <Paper sx={{ height: 400, overflowX: 'scroll' }}>
-            <Box sx={{ width: '100%', overflowX: 'auto' }}>
-                <Box sx={{ maxWidth: { xs: 300, sm: 400, md: 500, lg: '100%' }, overflowX: 'scroll' }}>
+        <Paper sx={{ height: 400 }}>
+            <Box sx={{ width: '100%' }}>
+                <Box sx={{ maxWidth: { xs: 300, sm: 400, md: 500, lg: '100%' } }}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
                         initialState={{ pagination: { paginationModel } }}
                         pageSizeOptions={[5, 10]}
-                        sx={{ border: 0, overflowX: 'scroll' }}
+                        sx={{ border: 0}}
                     />
                 </Box>
             </Box>
